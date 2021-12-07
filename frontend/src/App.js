@@ -21,6 +21,7 @@ import DeleteVehicle from "./components/deleteVehicle";
 import { socketUrl } from "./config.json";
 import { getJwt } from "./services/authService";
 import "bootstrap/dist/css/bootstrap.min.css";
+import OrderStatus from "./components/orderStatus";
 import { io } from "socket.io-client";
 export const socket = io(socketUrl, {
   query: {
@@ -50,6 +51,7 @@ class App extends Component {
             <UserRoute path="/myVehicles" component={VehicleList}></UserRoute>
             <UserRoute path="/sensorinfo" component={SensorInfo}></UserRoute>
             <UserRoute path="/myRides" component={MyRides}></UserRoute>
+            <UserRoute path= "/orderStatus" component={OrderStatus}></UserRoute>
             <UserRoute
               path="/deleteVehicle"
               component={DeleteVehicle}

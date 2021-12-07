@@ -58,6 +58,12 @@ const NavBar = () => {
                 label="Schedule a Ride"
                 path="/mySchedule"
               ></ListItemNavBar>
+              <ListItemNavBar
+                iconClass="fa fa-list-alt"
+                label="Order Status"
+                path="/orderStatus"
+              ></ListItemNavBar>
+
               {/* <ListItemNavBar
                 iconClass="fa fa-list-alt"
                 label="My Vehicles"

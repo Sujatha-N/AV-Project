@@ -6,8 +6,10 @@ const Joi = require("Joi");
 // const Joi = require("../node_modules/joi");
 
 const { User } = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
+  console.log(req.body.email);
   const result = validate(req.body);
   if (result.error)
     return res.status(400).send(result.error.details[0].message);

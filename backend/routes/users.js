@@ -4,6 +4,7 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
+const Order = require("../models/orderStatus");
 
 const { User } = require("../models/user");
 const { UserSubscription } = require("../models/userSubscription");
@@ -29,6 +30,60 @@ router.get("/plan", auth, async (req, res) => {
 router.get("/numberOfUsers", auth, admin, async (req, res) => {
   const count = await User.getCount();
   res.send({ count: count });
+});
+
+router.post("/orderStatus", async (req, res) => {
+  console.log("inside orderstatus backend", req.body);
+  const source_location = req.body.source;
+  const destination_location = req.body.destination;
+
+  // const orderLocationData = await orderLocation.findById("61aef9ebb4eb2e8b6d50eef1")
+  // orderLocationData.restaurant = source_location
+  // orderLocationData.delivery = destination_location
+
+  // orderLocationData.save()
+
+  // const orderStatusData = await orderStatus.findById("61aef73f519a9615c9b70738");
+  // orderStatusData.status = -1
+
+  // orderStatusData.save()
+
+  const order = new Order({
+    source_location: source_location,
+    destination_location: destination_location,
+    userId: req.body.userId,
+    status: req.body.status,
+  });
+
+  order.save((error, data) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send("Error Occured");
+    } else {
+      console.log(JSON.stringify(data));
+      res.status(200).send(JSON.stringify(data));
+    }
+  });
+})
+
+router.get("/orderStatus/:userId/:source_location/:destination_location", async (req, res) => {
+  
+  console.log("Request of Status = ", req.params.userId, req.params.source_location, req.params.destination_location);
+   Order.findOne({
+    // source_location: req.params.source_location,
+    // destination_location: req.params.destination_location,
+    userId: req.params.userId,
+  })
+    .then((order) => {
+      console.log(" Order details ", order);
+      res.json({ order });
+    })
+    .catch((err) => {
+      return res.status(422).json({ error: "Error accessing the order" });
+    });
+  // const orderStatusData = await orderStatus.findById("61aef73f519a9615c9b70738");
+  // res.send(orderStatusData)
+
 });
 
 router.post("/plan", auth, async (req, res) => {

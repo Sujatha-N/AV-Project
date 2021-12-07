@@ -14,8 +14,9 @@ if (!config.get("jwtPrivateKey")) {
 }
 
 const mongoose = require("mongoose");
-
-
+mongoose.connect("mongodb+srv://sujatha:sujatha777@cluster0.6palr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+  .then(()=> console.log("connected to database"))
+  .catch(()=> console.log("Not connected to db"));
 
 const cors = require("cors");
 app.use(cors());

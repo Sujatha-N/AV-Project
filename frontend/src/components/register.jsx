@@ -16,7 +16,7 @@ class Register extends Form {
     username: Joi.string().required().min(5).max(50).email().label("Username"),
     password: Joi.string().required().min(8).max(20).label("Password"),
   };
-
+  
   doSubmit = async () => {
     try {
       const response = await register(this.state.data);
