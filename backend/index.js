@@ -30,3 +30,21 @@ const httpServer = require("http").createServer(app);
 
 const port = process.env.PORT || config.get("port");
 httpServer.listen(port, () => console.log(`Listning to port ${port}.... `));
+
+var options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  poolSize: 500,
+  bufferMaxEntries: 0,
+};
+
+mongoose.connect("mongodb+srv://admin:admin@av-sensor-data.ojlbb.mongodb.net/AV-Sensor-Data?retryWrites=true&w=majority", options, (err, res) => {
+  if (err) {
+    console.log(err);
+    console.log(`MongoDB Connection Failed`);
+  } else {
+    console.log(`MongoDB Connected`);
+  }
+});
+
+app.use(express.static("./public"));
